@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
+# Docs Controller class
 class DocsController < ApplicationController
+  before_action :find_doc, only: [:show, :edit, :update, :destroy]
   def index
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @doc = Doc.new
@@ -28,10 +31,12 @@ class DocsController < ApplicationController
   end
 
   private
-    def find_doc
-    end
 
-    def doc_params
-      params.reuire(:doc).permit(:title, :content)
-    end
+  def find_doc
+    @doc = Doc.find(params[:id])
+  end
+
+  def doc_params
+    params.require(:doc).permit(:title, :content)
+  end
 end
